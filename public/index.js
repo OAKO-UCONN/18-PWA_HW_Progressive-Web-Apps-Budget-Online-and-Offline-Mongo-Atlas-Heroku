@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 if ("serviceWorker" in navigator) {
   console.log("Service worker navigated.");
   window.addEventListener("load", function(){
@@ -15,16 +17,26 @@ let transactions = [];
 let myChart;
 
 fetch("/api/transaction")
-  .then(response => {
+.then(response => {
     return response.json();
+
   })
   .then(data => {
+    readDatabase();
+    if (data.lenth > 0) {
     // save db data on global variable
     transactions = data;
-
     populateTotal();
     populateTable();
     populateChart();
+    return data;
+    } else {
+      $('#clear-all-data').hide();
+    }
+  })
+  .catch(err => {
+    //Failed to fetch data. Run readDatabase(); function.
+    readDatabase();
   });
 
 function populateTotal() {
@@ -89,6 +101,7 @@ function populateChart() {
         }]
     }
   });
+  $('#clear-all-data').show();
 }
 
 function sendTransaction(isAdding) {
@@ -158,9 +171,29 @@ function sendTransaction(isAdding) {
 }
 
 document.querySelector("#add-btn").onclick = function() {
+  event.preventDefault();
   sendTransaction(true);
 };
 
 document.querySelector("#sub-btn").onclick = function() {
+  event.preventDefault();
   sendTransaction(false);
 };
+
+async function clearData() {
+  const clearData = confirm("WARNING: Are you sure you want to delete all budget data?!?");
+  
+  //If user presses ok.
+  if (clearData) {
+    $('#clear-all-transactions').hide();
+  
+  try {
+    const deleted = await fetch("/api/deleteAll", {
+      method: "DELETE"
+    });
+    res.json(deleted);
+  } catch (err) {
+    clearIndexDBdata();
+  }
+  }
+}
