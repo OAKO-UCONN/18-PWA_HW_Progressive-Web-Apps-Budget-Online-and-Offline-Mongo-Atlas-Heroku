@@ -137,7 +137,7 @@ function sendTransaction(isAdding) {
   populateChart();
   populateTable();
   populateTotal();
-  
+
   // also send to server
   fetch("/api/transaction", {
     method: "POST",
@@ -147,7 +147,7 @@ function sendTransaction(isAdding) {
       "Content-Type": "application/json"
     }
   })
-  .then(response => {    
+  .then(response => {
     return response.json();
   })
   .then(data => {
@@ -182,11 +182,11 @@ document.querySelector("#sub-btn").onclick = function() {
 
 async function clearData() {
   const clearData = confirm("WARNING: Are you sure you want to delete all budget data?!?");
-  
+
   //If user presses ok.
   if (clearData) {
     $('#clear-all-transactions').hide();
-  
+
   try {
     const deleted = await fetch("/api/deleteAll", {
       method: "DELETE"
