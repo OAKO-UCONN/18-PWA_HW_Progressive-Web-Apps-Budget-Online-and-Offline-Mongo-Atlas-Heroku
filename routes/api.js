@@ -31,15 +31,4 @@ router.get("/api/transaction", (req, res) => {
     });
 });
 
-router.delete("/api/deleteAll", (req, res) => {
-  Transaction.remove({})
-  .then(dbTransaction => {
-      res.json(dbTransaction);
-  })
-  .catch(err => {
-      res.json(err);
-  });  
-});
-
-
 module.exports = router;
