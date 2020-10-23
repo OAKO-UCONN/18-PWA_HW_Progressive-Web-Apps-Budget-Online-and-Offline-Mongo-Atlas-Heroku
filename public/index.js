@@ -1,4 +1,5 @@
-const { response } = require("express");
+//const { response } = require ("express");
+//var express = require ("express");
 
 if ("serviceWorker" in navigator) {
   console.log("Service worker navigated.");
@@ -36,7 +37,7 @@ fetch("/api/transaction")
   })
   .catch(err => {
     //Failed to fetch data. Run readDatabase(); function.
-    readDatabase();
+    //readDatabase();
   });
 
 function populateTotal() {
