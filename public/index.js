@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const { response } = require("express");
 
 if ("serviceWorker" in navigator) {
@@ -13,6 +14,8 @@ if ("serviceWorker" in navigator) {
   });
 };
 
+=======
+>>>>>>> parent of d489a54... service-worker.js and index.js
 let transactions = [];
 let myChart;
 
