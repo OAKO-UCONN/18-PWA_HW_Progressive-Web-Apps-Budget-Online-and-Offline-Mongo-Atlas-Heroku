@@ -193,7 +193,7 @@ async function clearData() {
     });
     res.json(deleted);
   } catch (err) {
-    clearIndexDBdata();
+    clearData();
   }
   }
 }
